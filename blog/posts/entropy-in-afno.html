@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What an AFNO actually learns | Notes</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+            onload="renderMathInElement(document.body, {delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+</head>
+<body>
+    <nav class="nav">
+        <a href="../" class="nav-brand">aadityarajyadav <span class="nav-dim">/ blog</span></a>
+        <div class="nav-links">
+            <a href="../">All posts</a>
+            <a href="https://lab.aadityarajyadav.com.np">Lab</a>
+        </div>
+    </nav>
+
+    <article class="post">
+        <header class="post-header">
+            <time datetime="2026-04-12">April 12, 2026</time>
+            <h1>What an AFNO actually learns: an entropy-eye view</h1>
+        </header>
+
+        <p class="lede">
+            I spent a few weeks poking at NVIDIA&rsquo;s FourCastNet by feeding it inputs it was
+            never trained on &mdash; pure white noise on one hand, Kolmogorov-distributed
+            turbulence on the other &mdash; and asking a single question: how does the spectral
+            content evolve as data passes through the AFNO blocks?
+        </p>
+
+        <h2>The setup</h2>
+        <p>
+            For each layer $\ell$ and each input ensemble, I compute the radially-averaged
+            energy spectrum $E_k(\ell)$ from the activations and define a normalized spectral
+            distribution
+        </p>
+        <div class="equation">
+            $$ \hat{p}_k(\ell) = \frac{|E_k(\ell)|^2}{\sum_{k'} |E_{k'}(\ell)|^2}. $$
+        </div>
+        <p>The spectral entropy is then the standard Shannon entropy of this distribution,</p>
+        <div class="equation">
+            $$ S(\ell) = -\sum_{k} \hat{p}_k(\ell) \log \hat{p}_k(\ell). $$
+        </div>
+
+        <h2>What happens</h2>
+        <p>
+            For white noise, $S(\ell)$ stays roughly flat across depth &mdash; the network has
+            no reason to redistribute energy in $k$-space, and it doesn&rsquo;t. For Kolmogorov
+            inputs (energy spectrum $\sim k^{-5/3}$), $S(\ell)$ <em>collapses</em> over the
+            first few blocks and then plateaus. The shape of the collapse is reproducible across
+            seeds.
+        </p>
+        <p>
+            That&rsquo;s the cute result: the network has effectively learned a soft band-pass
+            filter in the inertial range, and you can read it off the entropy curve without ever
+            looking at the weights.
+        </p>
+
+        <h2>Why I think this matters</h2>
+        <p>
+            Neural operators are sold as universal function approximators in $L^2$, but in
+            practice the training distribution does most of the work. Treating $S(\ell)$ as a
+            diagnostic gives you a cheap, model-agnostic way to ask <em>where</em> in the
+            architecture the physics gets baked in. I&rsquo;ll write this up properly in
+            <a href="https://lab.aadityarajyadav.com.np">the lab page</a> &mdash; this post is
+            just the punchline.
+        </p>
+
+        <p class="post-footer">
+            <a href="../">&larr; Back to all posts</a>
+        </p>
+    </article>
+
+    <footer>
+        <div class="footer-inner">
+            <span>&copy; 2026 Aaditya Raj Yadav</span>
+            <span class="footer-links">
+                <a href="https://simulaq.aadityarajyadav.com.np">SimulaQ</a>
+                <a href="https://lab.aadityarajyadav.com.np">Lab</a>
+            </span>
+        </div>
+    </footer>
+</body>
+</html>

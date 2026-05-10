@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab | Aaditya Raj Yadav — Quantum Fluids &amp; Neural Operators</title>
+    <meta name="description" content="Research notes on Gross-Pitaevskii dynamics, vortex lattices, neural operators, and entropy in spectral neural networks.">
+    <link rel="stylesheet" href="styles.css">
+    <!-- KaTeX for equations -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+            onload="renderMathInElement(document.body, {delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+</head>
+<body>
+    <nav class="nav">
+        <a href="/" class="nav-brand">Lab<span class="nav-dim">/aadityarajyadav</span></a>
+        <div class="nav-links">
+            <a href="#research">Research</a>
+            <a href="#publications">Publications</a>
+            <a href="#gallery">Gallery</a>
+            <a href="https://simulaq.aadityarajyadav.com.np">SimulaQ</a>
+            <a href="https://blog.aadityarajyadav.com.np">Blog</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-inner">
+            <div class="meta">Department of Physics · IIT Kanpur</div>
+            <h1>Quantum Fluids, Neural Operators, and the Entropy of Learning</h1>
+            <p class="lede">
+                I study how learned spectral models — neural operators trained on physical data —
+                represent and compress turbulent dynamics. The central object is the
+                Gross-Pitaevskii equation,
+            </p>
+            <div class="equation">
+                $$ i\hbar \, \partial_t \psi = \left( -\frac{\hbar^2}{2m} \nabla^2 + V(\mathbf{r}) + g|\psi|^2 \right)\psi $$
+            </div>
+            <p class="lede">
+                whose vortex-lattice and turbulence regimes provide a clean testbed for asking:
+                <em>what does a neural operator actually learn about a cascade?</em>
+            </p>
+            <div class="contact-row">
+                <a href="mailto:aadityarajyadav@iitk.ac.in">aadityarajyadav@iitk.ac.in</a>
+                <span class="dot">·</span>
+                <a href="https://github.com/yadavaaditya06">GitHub</a>
+                <span class="dot">·</span>
+                <a href="cv.pdf">CV</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="container" id="research">
+            <h2>Current research</h2>
+
+            <article class="paper">
+                <div class="paper-tag">In progress · 2026</div>
+                <h3>Spectral entropy across AFNO blocks in FourCastNet</h3>
+                <p>
+                    We probe NVIDIA&rsquo;s FourCastNet by injecting two reference inputs &mdash;
+                    isotropic white noise and Kolmogorov-distributed turbulence &mdash; and
+                    measuring per-layer spectral entropy
+                </p>
+                <div class="equation">
+                    $$ S(\ell) = -\sum_{k} \hat{p}_k(\ell) \, \log \hat{p}_k(\ell), \quad
+                       \hat{p}_k(\ell) = \frac{|E_k(\ell)|^2}{\sum_{k'} |E_{k'}(\ell)|^2} $$
+                </div>
+                <p>
+                    across the Adaptive Fourier Neural Operator stack. The drop in $S(\ell)$ for
+                    Kolmogorov inputs &mdash; absent for white noise &mdash; suggests the network
+                    has learned a soft band-pass that approximates an inertial-range filter.
+                </p>
+            </article>
+
+            <article class="paper">
+                <div class="paper-tag">In progress · 2026</div>
+                <h3>LLM-synthesized CUDA kernels for Gross-Pitaevskii solvers</h3>
+                <p>
+                    Pipeline: a frontier LLM emits candidate split-step Fourier kernels for
+                    $-\nabla^2 + g|\psi|^2$ on A100/H100, an autotuner sweeps tile sizes, and a
+                    correctness oracle checks energy and norm conservation. Best kernels reach
+                    $\sim 1.7\times$ the baseline cuFFT pipeline on $4096^2$ grids.
+                </p>
+            </article>
+
+            <article class="paper">
+                <div class="paper-tag">Course project · 2025</div>
+                <h3>Vortex lattice formation in rotating BECs</h3>
+                <p>
+                    Imaginary-time evolution of a 2D BEC in a rotating harmonic trap,
+                    $V(r) = \tfrac{1}{2}m\omega^2 r^2 - \Omega L_z$. Tracking the critical
+                    rotation $\Omega_c$ at which the first vortex enters the cloud as a function
+                    of $g$ recovers the expected logarithmic dependence on the healing length.
+                </p>
+            </article>
+        </section>
+
+        <section class="container" id="publications">
+            <h2>Notes &amp; preprints</h2>
+            <ul class="pub-list">
+                <li>
+                    <span class="pub-year">2026</span>
+                    <span class="pub-title">Entropy collapse in adaptive Fourier neural operators</span>
+                    <span class="pub-meta">Working note &middot; <a href="#">PDF</a></span>
+                </li>
+                <li>
+                    <span class="pub-year">2025</span>
+                    <span class="pub-title">A clean implementation of split-step Fourier for 2D GPE</span>
+                    <span class="pub-meta">Course report &middot; <a href="#">PDF</a></span>
+                </li>
+                <li>
+                    <span class="pub-year">2025</span>
+                    <span class="pub-title">Notes on Kolmogorov 1941 and what neural operators forget</span>
+                    <span class="pub-meta">Blog &middot; <a href="https://blog.aadityarajyadav.com.np">read</a></span>
+                </li>
+            </ul>
+        </section>
+
+        <section class="container" id="gallery">
+            <h2>Simulation gallery</h2>
+            <div class="gallery">
+                <figure>
+                    <div class="thumb" data-label="vortex-lattice.png"></div>
+                    <figcaption>Vortex lattice, $\Omega = 0.7\,\omega$, $g = 500$.</figcaption>
+                </figure>
+                <figure>
+                    <div class="thumb" data-label="energy-spectrum.png"></div>
+                    <figcaption>Energy spectrum $E(k)$ &mdash; Kolmogorov $k^{-5/3}$ overlay.</figcaption>
+                </figure>
+                <figure>
+                    <div class="thumb" data-label="entropy-curve.png"></div>
+                    <figcaption>Per-layer entropy $S(\ell)$ across AFNO depth.</figcaption>
+                </figure>
+            </div>
+            <p class="muted small">
+                Drop PNGs into <code>./figures/</code> and replace each <code>.thumb</code> with
+                an <code>&lt;img&gt;</code> tag.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <span>Aaditya Raj Yadav · IIT Kanpur · 2026</span>
+            <span class="footer-links">
+                <a href="https://simulaq.aadityarajyadav.com.np">SimulaQ</a>
+                <a href="https://blog.aadityarajyadav.com.np">Blog</a>
+                <a href="https://github.com/yadavaaditya06">GitHub</a>
+            </span>
+        </div>
+    </footer>
+</body>
+</html>

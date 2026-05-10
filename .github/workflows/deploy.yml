@@ -1,0 +1,106 @@
+name: Deploy sites
+
+# Source of truth lives in this monorepo; each subfolder is published to its
+# own Pages-enabled repo via peaceiris/actions-gh-pages.
+#
+# Required secret on this repo:
+#   DEPLOY_TOKEN  - a fine-grained or classic PAT with `Contents: write`
+#                   on the three target repos (simulaq-web, lab-web, blog-web).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  detect:
+    name: Detect changed sites
+    runs-on: ubuntu-latest
+    outputs:
+      simulaq: ${{ steps.filter.outputs.simulaq }}
+      lab: ${{ steps.filter.outputs.lab }}
+      blog: ${{ steps.filter.outputs.blog }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            simulaq:
+              - 'simulaq/**'
+              - '.github/workflows/deploy.yml'
+            lab:
+              - 'lab/**'
+              - '.github/workflows/deploy.yml'
+            blog:
+              - 'blog/**'
+              - '.github/workflows/deploy.yml'
+
+  deploy-simulaq:
+    name: Deploy simulaq
+    needs: detect
+    if: needs.detect.outputs.simulaq == 'true' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish simulaq/ to yadavaaditya06/simulaq-web
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.DEPLOY_TOKEN }}
+          external_repository: yadavaaditya06/simulaq-web
+          publish_branch: main
+          publish_dir: ./simulaq
+          cname: simulaq.aadityarajyadav.com.np
+          force_orphan: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'deploy: ${{ github.sha }}'
+
+  deploy-lab:
+    name: Deploy lab
+    needs: detect
+    if: needs.detect.outputs.lab == 'true' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish lab/ to yadavaaditya06/lab-web
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.DEPLOY_TOKEN }}
+          external_repository: yadavaaditya06/lab-web
+          publish_branch: main
+          publish_dir: ./lab
+          cname: lab.aadityarajyadav.com.np
+          force_orphan: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'deploy: ${{ github.sha }}'
+
+  deploy-blog:
+    name: Deploy blog
+    needs: detect
+    if: needs.detect.outputs.blog == 'true' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish blog/ to yadavaaditya06/blog-web
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.DEPLOY_TOKEN }}
+          external_repository: yadavaaditya06/blog-web
+          publish_branch: main
+          publish_dir: ./blog
+          cname: blog.aadityarajyadav.com.np
+          force_orphan: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'deploy: ${{ github.sha }}'
