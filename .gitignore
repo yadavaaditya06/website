@@ -15,3 +15,12 @@ build/
 
 # Local logs
 *.log
+
+# Secrets / tokens — never commit
+*.rtf
+*token*
+*secret*
+.env
+.env.*
+!.env.example
+

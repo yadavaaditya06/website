@@ -5,7 +5,8 @@ name: Deploy sites
 #
 # Required secret on this repo:
 #   DEPLOY_TOKEN  - a fine-grained or classic PAT with `Contents: write`
-#                   on the three target repos (simulaq-web, lab-web, blog-web).
+#                   on the four target repos:
+#                   yadavaaditya06.github.io, simulaq-web, lab-web, blog-web.
 
 on:
   push:
@@ -24,6 +25,7 @@ jobs:
     name: Detect changed sites
     runs-on: ubuntu-latest
     outputs:
+      home: ${{ steps.filter.outputs.home }}
       simulaq: ${{ steps.filter.outputs.simulaq }}
       lab: ${{ steps.filter.outputs.lab }}
       blog: ${{ steps.filter.outputs.blog }}
@@ -35,6 +37,9 @@ jobs:
         uses: dorny/paths-filter@v3
         with:
           filters: |
+            home:
+              - 'home/**'
+              - '.github/workflows/deploy.yml'
             simulaq:
               - 'simulaq/**'
               - '.github/workflows/deploy.yml'
@@ -44,6 +49,26 @@ jobs:
             blog:
               - 'blog/**'
               - '.github/workflows/deploy.yml'
+
+  deploy-home:
+    name: Deploy home (apex)
+    needs: detect
+    if: needs.detect.outputs.home == 'true' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish home/ to yadavaaditya06/yadavaaditya06.github.io
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.DEPLOY_TOKEN }}
+          external_repository: yadavaaditya06/yadavaaditya06.github.io
+          publish_branch: main
+          publish_dir: ./home
+          cname: aadityarajyadav.com.np
+          force_orphan: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'deploy: ${{ github.sha }}'
 
   deploy-simulaq:
     name: Deploy simulaq

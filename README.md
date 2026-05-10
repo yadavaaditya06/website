@@ -3,11 +3,12 @@
 A monorepo for three independent static sites, each deployed to its own
 GitHub Pages repository via a single GitHub Actions workflow.
 
-| Folder      | Purpose          | Subdomain                              | Pages repo                     |
-| ----------- | ---------------- | -------------------------------------- | ------------------------------ |
-| `simulaq/`  | Startup landing  | `simulaq.aadityarajyadav.com.np`       | `yadavaaditya06/simulaq-web`   |
-| `lab/`      | Research page    | `lab.aadityarajyadav.com.np`           | `yadavaaditya06/lab-web`       |
-| `blog/`     | Long-form notes  | `blog.aadityarajyadav.com.np`          | `yadavaaditya06/blog-web`      |
+| Folder      | Purpose          | Domain                                 | Pages repo                                |
+| ----------- | ---------------- | -------------------------------------- | ----------------------------------------- |
+| `home/`     | Apex landing     | `aadityarajyadav.com.np`               | `yadavaaditya06/yadavaaditya06.github.io` |
+| `simulaq/`  | Startup landing  | `simulaq.aadityarajyadav.com.np`       | `yadavaaditya06/simulaq-web`              |
+| `lab/`      | Research page    | `lab.aadityarajyadav.com.np`           | `yadavaaditya06/lab-web`                  |
+| `blog/`     | Long-form notes  | `blog.aadityarajyadav.com.np`          | `yadavaaditya06/blog-web`                 |
 
 ## How it works
 
@@ -18,14 +19,16 @@ the corresponding `*-web` repo's `main` branch using
 [`peaceiris/actions-gh-pages`](https://github.com/peaceiris/actions-gh-pages).
 GitHub Pages serves each `*-web` repo at its custom subdomain.
 
-```
-website/                          push to main
-├── simulaq/  ─┐                          │
-├── lab/      ─┼──── deploy.yml ──────────┤
-└── blog/     ─┘                          │
-                                          ▼
-                       simulaq-web ──► simulaq.aadityarajyadav.com.np
-                       lab-web     ──► lab.aadityarajyadav.com.np
+```    push to main
+├── home/     ─┐                              │
+├── simulaq/  ─┤                              │
+├── lab/      ─┼──── deploy.yml ──────────────┤
+└── blog/     ─┘                              │
+                                              ▼
+              yadavaaditya06.github.io ──► aadityarajyadav.com.np
+              simulaq-web              ──► simulaq.aadityarajyadav.com.np
+              lab-web                  ──► lab.aadityarajyadav.com.np
+              blog-web                 ──► lab.aadityarajyadav.com.np
                        blog-web    ──► blog.aadityarajyadav.com.np
 ```
 
@@ -38,19 +41,21 @@ python3 -m http.server 8000
 # open http://localhost:8000
 ```
 
-## One-time deploy setup
-
-### 1. Create the four GitHub repos
+## One-time deployGitHub repos
 
 ```bash
-gh repo create yadavaaditya06/website     --public --source=. --remote=origin --push
-gh repo create yadavaaditya06/simulaq-web --public
-gh repo create yadavaaditya06/lab-web     --public
-gh repo create yadavaaditya06/blog-web    --public
+gh repo create yadavaaditya06/website                  --public --source=. --remote=origin --push
+gh repo create yadavaaditya06/yadavaaditya06.github.io --public  # apex landing target
+gh repo create yadavaaditya06/simulaq-web              --public
+gh repo create yadavaaditya06/lab-web                  --public
+gh repo create yadavaaditya06/blog-web                 --public
 ```
 
 ### 2. Create a deploy token
 
+Generate a Personal Access Token (classic) with `repo` scope, or a
+fine-grained PAT with `Contents: write` on the four target repos
+(`yadavaaditya06.github.io`, `simulaq-web`, `lab-web`, `blog-web`)
 Generate a Personal Access Token (classic) with `repo` scope, or a
 fine-grained PAT with `Contents: write` on the three `*-web` repos:
 
@@ -66,19 +71,26 @@ gh secret set DEPLOY_TOKEN --repo yadavaaditya06/website
 
 ```bash
 git push origin main
-# or, to force-rebuild all three sites:
-gh workflow run deploy.yml --repo yadavaaditya06/website
-```
+### 4. Enable Pages on each target repo
 
-### 4. Enable Pages on each `*-web` repo
-
-For each of `simulaq-web`, `lab-web`, `blog-web`:
+For each of `yadavaaditya06.github.io`, `simulaq-web`, `lab-web`, `blog-web`:
 
   **Settings → Pages** → Source: `Deploy from a branch`, Branch: `main` / `/ (root)` → **Save**
 
 The CNAME file is published by the workflow, so the custom domain field
 should fill in automatically. Tick **Enforce HTTPS** once it appears.
 
+### 5. Cloudflare DNS
+
+The apex needs A records (CNAMEs aren&rsquo;t allowed at the apex on most DNS providers).
+The subdomains use CNAMEs.
+
+| Type  | Name      | Target                       | Proxy     |
+| ----- | --------- | ---------------------------- | --------- |
+| A     | `@`       | `185.199.108.153`            | DNS only* |
+| A     | `@`       | `185.199.109.153`            | DNS only* |
+| A     | `@`       | `185.199.110.153`            | DNS only* |
+| A     | `@`       | `185.199.111.153`            | DNS only* |
 ### 5. Cloudflare DNS (once per subdomain)
 
 | Type  | Name      | Target                       | Proxy     |
@@ -102,7 +114,8 @@ git push
 To force-rebuild every site (e.g. after fixing the workflow itself):
 
 ```bash
-gh workflow run deploy.yml --repo yadavaaditya06/website
+gh home/`: add a profile photo, latest post highlight, maybe a "now" section.
+- `workflow run deploy.yml --repo yadavaaditya06/website
 ```
 
 ## Notes
