@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Aaditya Raj Yadav — Lab</title>
+    <meta name="description" content="About Aaditya Raj Yadav — physics undergraduate at IIT Kanpur working on quantum fluids, neural operators, and the entropy of learned spectral models.">
+    <link rel="stylesheet" href="../styles.css">
+    <!-- KaTeX for equations -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+            onload="renderMathInElement(document.body, {delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+</head>
+<body>
+    <nav class="nav">
+        <a href="../" class="nav-brand">Lab<span class="nav-dim">/aadityarajyadav</span></a>
+        <div class="nav-links">
+            <a href="../">Home</a>
+            <a href="../#research">Research</a>
+            <a href="../#publications">Publications</a>
+            <a href="../#gallery">Gallery</a>
+            <a href="contact.html">Contact</a>
+            <a href="https://simulaq.aadityarajyadav.com.np">SimulaQ</a>
+            <a href="https://blog.aadityarajyadav.com.np">Blog</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-inner">
+            <div class="meta">About</div>
+            <h1>Aaditya Raj Yadav</h1>
+            <p class="lede">
+                I&rsquo;m an undergraduate in the Department of Physics at IIT Kanpur. I work at
+                the seam between <em>quantum fluid dynamics</em> and <em>machine learning for
+                physics</em> &mdash; mostly asking what neural operators learn when they&rsquo;re
+                trained on turbulent data, and how to make them faster on real hardware.
+            </p>
+            <div class="contact-row">
+                <a href="mailto:aadityarajyadav@iitk.ac.in">aadityarajyadav@iitk.ac.in</a>
+                <span class="dot">·</span>
+                <a href="https://github.com/yadavaaditya06">GitHub</a>
+                <span class="dot">·</span>
+                <a href="../cv.pdf">CV</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="container">
+            <h2>Research interests</h2>
+            <article class="paper">
+                <h3>Neural operators &amp; spectral learning</h3>
+                <p>
+                    Adaptive Fourier Neural Operators (AFNO), FNO variants, and how their
+                    behaviour in $k$-space &mdash; entropy, energy redistribution, learned
+                    band-pass structure &mdash; reflects the physics they were trained on.
+                </p>
+            </article>
+            <article class="paper">
+                <h3>Quantum fluids</h3>
+                <p>
+                    Gross-Pitaevskii dynamics in 2D and 3D: vortex lattices in rotating BECs,
+                    quantum turbulence, and the inertial-range scaling
+                    $E(k) \sim k^{-5/3}$ in the compressible kinetic spectrum.
+                </p>
+            </article>
+            <article class="paper">
+                <h3>LLM-assisted scientific computing</h3>
+                <p>
+                    Using frontier models to synthesize, autotune, and verify CUDA kernels for
+                    split-step Fourier solvers on NVIDIA A100 / H100. The interesting question
+                    isn&rsquo;t &ldquo;can it write a kernel&rdquo; &mdash; it&rsquo;s how to
+                    close the correctness loop cheaply.
+                </p>
+            </article>
+        </section>
+
+        <section class="container">
+            <h2>Background</h2>
+            <ul class="pub-list">
+                <li>
+                    <span class="pub-year">2024&ndash;</span>
+                    <span class="pub-title">B.S., Physics &mdash; Indian Institute of Technology Kanpur</span>
+                    <span class="pub-meta">Undergraduate</span>
+                </li>
+                <li>
+                    <span class="pub-year">2025</span>
+                    <span class="pub-title">Vortex lattice formation in rotating BECs</span>
+                    <span class="pub-meta">Course project</span>
+                </li>
+                <li>
+                    <span class="pub-year">2026</span>
+                    <span class="pub-title">SimulaQ &mdash; AI-accelerated quantum dynamics</span>
+                    <span class="pub-meta"><a href="https://simulaq.aadityarajyadav.com.np">simulaq</a></span>
+                </li>
+            </ul>
+        </section>
+
+        <section class="container">
+            <h2>Tools I reach for</h2>
+            <article class="paper">
+                <p>
+                    Python (NumPy, PyTorch, JAX) for prototyping; C++/CUDA when something needs
+                    to actually run; cuFFT and split-step Fourier as the workhorse for GPE;
+                    Matplotlib for plots that have to be honest about uncertainty. I keep
+                    experiment notebooks under version control and try to make every plot
+                    reproducible from a single script.
+                </p>
+            </article>
+        </section>
+
+        <section class="container">
+            <h2>Elsewhere</h2>
+            <ul class="pub-list">
+                <li>
+                    <span class="pub-year">Code</span>
+                    <span class="pub-title">Open-source work, notebooks, and experiments</span>
+                    <span class="pub-meta"><a href="https://github.com/yadavaaditya06">github.com/yadavaaditya06</a></span>
+                </li>
+                <li>
+                    <span class="pub-year">Writing</span>
+                    <span class="pub-title">Long-form notes on physics &amp; ML</span>
+                    <span class="pub-meta"><a href="https://blog.aadityarajyadav.com.np">blog</a></span>
+                </li>
+                <li>
+                    <span class="pub-year">Project</span>
+                    <span class="pub-title">SimulaQ &mdash; quantum dynamics, accelerated</span>
+                    <span class="pub-meta"><a href="https://simulaq.aadityarajyadav.com.np">simulaq</a></span>
+                </li>
+                <li>
+                    <span class="pub-year">Email</span>
+                    <span class="pub-title">Reach out about research or collaboration</span>
+                    <span class="pub-meta"><a href="mailto:aadityarajyadav@iitk.ac.in">aadityarajyadav@iitk.ac.in</a></span>
+                </li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <span>Aaditya Raj Yadav · IIT Kanpur · 2026</span>
+            <span class="footer-links">
+                <a href="../">Lab</a>
+                <a href="https://simulaq.aadityarajyadav.com.np">SimulaQ</a>
+                <a href="https://blog.aadityarajyadav.com.np">Blog</a>
+                <a href="https://github.com/yadavaaditya06">GitHub</a>
+            </span>
+        </div>
+    </footer>
+</body>
+</html>

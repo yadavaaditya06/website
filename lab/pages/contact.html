@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Aaditya Raj Yadav — Lab</title>
+    <meta name="description" content="Get in touch about research, collaboration, or compute partnerships.">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <nav class="nav">
+        <a href="../" class="nav-brand">Lab<span class="nav-dim">/aadityarajyadav</span></a>
+        <div class="nav-links">
+            <a href="../">Home</a>
+            <a href="about.html">About</a>
+            <a href="../#research">Research</a>
+            <a href="../#publications">Publications</a>
+            <a href="../#gallery">Gallery</a>
+            <a href="https://simulaq.aadityarajyadav.com.np">SimulaQ</a>
+            <a href="https://blog.aadityarajyadav.com.np">Blog</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-inner">
+            <div class="meta">Contact</div>
+            <h1>Get in touch</h1>
+            <p class="lede">
+                Research collaborations, advisor introductions, compute partnerships, or just
+                a question about something on this site &mdash; drop a note below. I read
+                everything, and reply to most things within a week.
+            </p>
+            <div class="contact-row">
+                <a href="mailto:aadityarajyadav@iitk.ac.in">aadityarajyadav@iitk.ac.in</a>
+                <span class="dot">·</span>
+                <a href="https://github.com/yadavaaditya06">GitHub</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="container">
+            <h2>Send a message</h2>
+
+            <!-- Progressive-enhancement fallback: works without JS too. -->
+            <form id="contact-form"
+                  class="contact-form"
+                  action="mailto:aadityarajyadav@iitk.ac.in"
+                  method="post"
+                  enctype="text/plain"
+                  novalidate>
+
+                <div class="form-row">
+                    <label for="cf-name">Name</label>
+                    <input id="cf-name" name="name" type="text" autocomplete="name" required>
+                    <p class="field-error" data-for="name" role="alert"></p>
+                </div>
+
+                <div class="form-row">
+                    <label for="cf-email">Email</label>
+                    <input id="cf-email" name="email" type="email" autocomplete="email" required>
+                    <p class="field-error" data-for="email" role="alert"></p>
+                </div>
+
+                <div class="form-row">
+                    <label for="cf-subject">Subject</label>
+                    <input id="cf-subject" name="subject" type="text" required>
+                    <p class="field-error" data-for="subject" role="alert"></p>
+                </div>
+
+                <div class="form-row">
+                    <label for="cf-message">Message</label>
+                    <textarea id="cf-message" name="message" rows="7" required></textarea>
+                    <p class="field-error" data-for="message" role="alert"></p>
+                </div>
+
+                <!-- Honeypot: hidden from humans, attractive to bots. -->
+                <div class="hp" aria-hidden="true">
+                    <label for="cf-website">Website</label>
+                    <input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off">
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">Send message</button>
+                    <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+                </div>
+            </form>
+
+            <p class="muted small">
+                Prefer email? Write to
+                <a href="mailto:aadityarajyadav@iitk.ac.in">aadityarajyadav@iitk.ac.in</a>
+                directly.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <span>Aaditya Raj Yadav · IIT Kanpur · 2026</span>
+            <span class="footer-links">
+                <a href="../">Lab</a>
+                <a href="https://simulaq.aadityarajyadav.com.np">SimulaQ</a>
+                <a href="https://blog.aadityarajyadav.com.np">Blog</a>
+                <a href="https://github.com/yadavaaditya06">GitHub</a>
+            </span>
+        </div>
+    </footer>
+
+    <script defer src="../js/contact.js"></script>
+</body>
+</html>

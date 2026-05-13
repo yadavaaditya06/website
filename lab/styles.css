@@ -201,6 +201,94 @@ main { padding-bottom: 60px; }
 .muted { color: var(--muted); }
 .small { font-size: 0.88rem; }
 
+/* Contact form */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 640px;
+}
+.form-row { display: flex; flex-direction: column; gap: 6px; }
+.form-row label {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+}
+.form-row input,
+.form-row textarea {
+    background: var(--bg-soft);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.5;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.form-row input:focus,
+.form-row textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.form-row textarea { resize: vertical; min-height: 140px; }
+.form-row [aria-invalid="true"] { border-color: #d96b6b; }
+.field-error {
+    margin: 0;
+    min-height: 1em;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: #d96b6b;
+}
+.field-error:empty { display: none; }
+
+/* Honeypot — visually hidden but still in the DOM. */
+.hp {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+.btn-submit {
+    background: var(--accent);
+    color: #0b0c0e;
+    border: 1px solid var(--accent);
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.05s ease;
+}
+.btn-submit:hover { background: #94baff; }
+.btn-submit:active { transform: translateY(1px); }
+.btn-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.form-status {
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+.form-status[data-kind="success"] { color: #6bd6a3; }
+.form-status[data-kind="error"]   { color: #d96b6b; }
+
 /* Footer */
 footer {
     border-top: 1px solid var(--border);
